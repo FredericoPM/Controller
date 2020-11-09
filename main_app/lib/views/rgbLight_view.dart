@@ -19,14 +19,6 @@ class RGBlightState extends State<RGBlight> {
       home: Scaffold(
         drawer: MenuDrawer(),
         appBar: AppBar(
-          /*
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () =>{
-
-            },
-          ),
-          */
           title: Text("RGB Light"),
 
           centerTitle: true,
@@ -49,16 +41,22 @@ class RGBlightState extends State<RGBlight> {
             thumbSize: 36,
           ),
         ),
-        floatingActionButton: FloatingActionButton(
-          foregroundColor: Colors.grey[50],
-          backgroundColor: Colors.grey[700],
-          onPressed: () =>{
-            setState(() {
-              _lightState = !_lightState;
-            }),
-          },
-          child: _lightState ? Icon(Icons.lightbulb) :Icon(Icons.lightbulb_outline),
-        ),
+        floatingActionButton: Container(
+          height: 70,
+          width: 70,
+          child: FittedBox(
+            child: FloatingActionButton(
+              foregroundColor: Colors.grey[50],
+              backgroundColor: Colors.grey[700],
+              onPressed: () =>{
+                setState(() {
+                  _lightState = !_lightState;
+                }),
+              },
+              child: _lightState ? Icon(Icons.lightbulb) : Icon(Icons.lightbulb_outline),
+            ),
+          ),
+        )
       )
     );
   }
