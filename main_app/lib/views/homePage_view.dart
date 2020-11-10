@@ -6,7 +6,7 @@ class HomePage extends StatefulWidget {
   HomePageState createState() => HomePageState();
 }
 class HomePageState extends State<HomePage> {
-  bool _theme = true;
+  bool _theme = false;
   var pref = new Preferences();
 
   _loadTheme() async{
@@ -25,21 +25,7 @@ class HomePageState extends State<HomePage> {
           drawer: MenuDrawer(),
           appBar: AppBar(
             title: Text("Home page"),
-
             centerTitle: true,
-
-            actions: <Widget>[
-              IconButton(
-                icon: const Icon(Icons.wb_sunny_outlined),
-                tooltip: 'Tema',
-                onPressed: () => {
-                  setState(() {
-                    _theme = !_theme;
-                  }),
-                },
-              )
-            ],
-
           ),
         ),
     );

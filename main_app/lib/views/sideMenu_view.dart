@@ -3,6 +3,7 @@ import 'package:main_app/views/rgbLight_view.dart';
 import 'package:main_app/views/normalLight_view.dart';
 import 'package:main_app/views/config_view.dart';
 import 'package:main_app/views/homePage_view.dart';
+import 'package:main_app/views/sliderLight_view.dart';
 class MenuDrawer extends StatefulWidget {
   @override
   MenuDrawerState createState() => MenuDrawerState();
@@ -27,11 +28,19 @@ class MenuDrawerState extends State<MenuDrawer>{
               ),
             ),
             ListTile(
+              title: Text('Home'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+              },
+            ),
+            ListTile(
               title: Text('RGB Light'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => RGBlight()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => RGBLight()));
               },
             ),
             ListTile(
@@ -43,6 +52,14 @@ class MenuDrawerState extends State<MenuDrawer>{
               },
             ),
             ListTile(
+              title: Text('Slider Light'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SliderLight()));
+              },
+            ),
+            ListTile(
               title: Text('Configurações'),
               onTap: () {
                 Navigator.pop(context);
@@ -50,6 +67,7 @@ class MenuDrawerState extends State<MenuDrawer>{
                 Navigator.push(context, MaterialPageRoute(builder: (context) => Config()));
               },
             ),
+
           ],
         ),
     );

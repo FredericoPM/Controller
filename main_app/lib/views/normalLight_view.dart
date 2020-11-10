@@ -18,17 +18,7 @@ class NormalLightState extends State<NormalLight> {
         drawer: MenuDrawer(),
         appBar: AppBar(
           title: Text("Normal Light"),
-
           centerTitle: true,
-
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.wb_sunny_outlined),
-              tooltip: 'Tema',
-              onPressed: () => {},
-            )
-          ],
-
         ),
         body: Center(
           child: Container(

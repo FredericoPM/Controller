@@ -5,7 +5,7 @@ class Preferences{
   Future<bool> loadTheme() async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.getBool('theme') ?? true;
+    prefs.getBool('theme') ?? false;
   }
   storeTheme(bool theme) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

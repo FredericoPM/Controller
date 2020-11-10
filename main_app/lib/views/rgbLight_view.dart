@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/views/colorPicker_view.dart';
 import 'package:main_app/views/sideMenu_view.dart';
-class RGBlight extends StatefulWidget {
+class RGBLight extends StatefulWidget {
   @override
-  RGBlightState createState() => RGBlightState();
+  RGBLightState createState() => RGBLightState();
 }
-class RGBlightState extends State<RGBlight> {
+class RGBLightState extends State<RGBLight> {
   bool _lightState = false;
   void initState() {
     super.initState();
@@ -20,17 +20,7 @@ class RGBlightState extends State<RGBlight> {
         drawer: MenuDrawer(),
         appBar: AppBar(
           title: Text("RGB Light"),
-
           centerTitle: true,
-
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.wb_sunny_outlined),
-              tooltip: 'Tema',
-              onPressed: () => {},
-            )
-          ],
-
         ),
         body: Center(
           child: CircleColorPicker(

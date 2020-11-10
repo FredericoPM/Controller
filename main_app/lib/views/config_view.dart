@@ -38,17 +38,7 @@ class ConfigState extends State<Config> {
         drawer: MenuDrawer(),
         appBar: AppBar(
           title: Text("Configurações"),
-
           centerTitle: true,
-
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.wb_sunny_outlined),
-              tooltip: 'Tema',
-              onPressed: () => {},
-            )
-          ],
-
         ),
         body:
           Column(
