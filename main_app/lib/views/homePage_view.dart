@@ -9,9 +9,6 @@ class HomePageState extends State<HomePage> {
   bool _theme = false;
   var pref = new Preferences();
 
-  _loadTheme() async{
-    _theme = await pref.loadTheme();
-  }
   void initState() {
     super.initState();
   }
