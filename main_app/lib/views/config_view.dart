@@ -50,14 +50,25 @@ class ConfigState extends State<Config> {
           ],
 
         ),
-        body: Column(
-          children: <Widget>[
-            sizedBoxSpace,
-            _buildTextFild(_broker, "Broker", "test.mosquitto.org"),
-            sizedBoxSpace,
-            _buildTextFild(_topic, "Topico", "SuaCasa/Quarto1"),
-          ],
-        ),
+        body:
+          Column(
+            children: <Widget>[
+              sizedBoxSpace,
+              Center(
+                child: Container(
+                  width: 350,
+                  child: _buildTextFild(_broker, "Broker", "test.mosquitto.org"),
+                ),
+              ),
+              sizedBoxSpace,
+              Center(
+                child: Container(
+                  width: 350,
+                  child: _buildTextFild(_topic, "Topico", "SuaCasa/Quarto1"),
+                ),
+              ),
+            ],
+          ),
       ),
     );
   }
