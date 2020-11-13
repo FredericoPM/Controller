@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:main_app/views/homePage_view.dart';
 import 'package:main_app/views/rgbLight_view.dart';
 import 'package:main_app/views/normalLight_view.dart';
-import 'package:main_app/views/config_view.dart';
-import 'package:main_app/views/homePage_view.dart';
 import 'package:main_app/views/sliderLight_view.dart';
+import 'package:main_app/views/multipleLights.dart';
+import 'package:main_app/views/config_view.dart';
 class MenuDrawer extends StatefulWidget {
   @override
   MenuDrawerState createState() => MenuDrawerState();
@@ -52,11 +53,24 @@ class MenuDrawerState extends State<MenuDrawer>{
               },
             ),
             ListTile(
+              title: Text('Multiple Lights'),
+              onTap: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => MultipleLights()));
+              },
+            ),
+            ListTile(
               title: Text('Slider Light'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.pop(context);
                 Navigator.push(context, MaterialPageRoute(builder: (context) => SliderLight()));
+              },
+            ),
+            ListTile(
+              title: Text('+ Nova Pagina', style: TextStyle(color: Colors.grey),),
+              onTap: () {
               },
             ),
             ListTile(
