@@ -69,7 +69,7 @@ class MenuDrawerState extends State<MenuDrawer>{
               },
             ),
             ListTile(
-              title: Text('+ Nova Pagina', style: TextStyle(color: Colors.grey),),
+              title: Text('Nova Pagina  +', style: TextStyle(color: Colors.grey),),
               onTap: () {
               },
             ),
