@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:/main_app/widgets/colorPicker_widget.dart';
-import 'package:/main_app/widgets/sideMenu_widget.dart';
+import 'package:main_app/widgets/colorPicker_widget.dart';
+import 'package:main_app/widgets/sideMenu_widget.dart';
 class RGBLight extends StatefulWidget {
   @override
   RGBLightState createState() => RGBLightState();
