@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/views/sideMenu_view.dart';
+import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/sideMenu_widget.dart';
 import 'package:main_app/controllers/multipleLights_controller.dart';
 class MultipleLights extends StatefulWidget {
   @override
@@ -20,24 +20,28 @@ class _MultipleLightsState extends State<MultipleLights> {
             content: Text("Deseja remover o este botão?", style: TextStyle(color: Colors.grey[100])),
             actions: <Widget>[
               Container(
+                alignment: Alignment.center,
                 width: 500,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    FlatButton(
-                      child: new Text('NÃO', style: TextStyle(color: Colors.red)),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                    FlatButton(
-                      child: new Text('SIM', style: TextStyle(color: Colors.blue)),
-                      onPressed: () {
-                        delete();
-                        Navigator.of(context).pop();
-                      },
-                    )
-                  ],
+                child: Container(
+                  width: 200,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      FlatButton(
+                        child: new Text('NÃO', style: TextStyle(color: Colors.red)),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      FlatButton(
+                        child: new Text('SIM', style: TextStyle(color: Colors.blue)),
+                        onPressed: () {
+                          delete();
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ],
+                  ),
                 ),
               )
 
@@ -130,13 +134,13 @@ class _MultipleLightsState extends State<MultipleLights> {
                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                  children: [
                    FlatButton(
+                     child: Text("CANCELAR", style: TextStyle(color: Colors.red, fontSize: 14)),
                      onPressed: ()  {
                        setState(() {
                          _titleController.text = "";
                        });
                        Navigator.of(context).pop();
                      },
-                     child: Text("CANCELAR", style: TextStyle(color: Colors.red, fontSize: 14)),
                    ),
                    FlatButton(
                      child: new Text('SALVAR', style: TextStyle(color: Colors.blue, fontSize: 14)),

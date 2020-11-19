@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/views/sideMenu_view.dart';
+import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/sideMenu_widget.dart';
 class HomePage extends StatefulWidget {
   @override
   HomePageState createState() => HomePageState();

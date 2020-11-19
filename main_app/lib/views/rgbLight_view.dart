@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/views/colorPicker_view.dart';
-import 'package:main_app/views/sideMenu_view.dart';
+import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/colorPicker_widget.dart';
+import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/sideMenu_widget.dart';
 class RGBLight extends StatefulWidget {
   @override
   RGBLightState createState() => RGBLightState();
