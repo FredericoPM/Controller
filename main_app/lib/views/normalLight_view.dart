@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/sideMenu_widget.dart';
+import 'package:main_app/widgets/sideMenu_widget.dart';
 class NormalLight extends StatefulWidget {
   @override
   NormalLightState createState() => NormalLightState();

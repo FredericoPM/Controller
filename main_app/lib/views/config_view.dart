@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/sideMenu_widget.dart';
-import 'file:///C:/Users/Fred/Desktop/facul/Ledstrip_controller/main_app/lib/widgets/desconected_widget.dart';
+import 'package:main_app/widgets/sideMenu_widget.dart';
+import 'package:main_app/widgets/desconected_widget.dart';
 class Config extends StatefulWidget {
   @override
   ConfigState createState() => ConfigState();
