@@ -11,7 +11,41 @@ class _MultipleLightsState extends State<MultipleLights> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _titleController = TextEditingController();
 
-  Widget _buildLightButton({String title, bool controller,void Function() onPressed, void Function() onLongPress}){
+  _displayDeltePopUp({context, void Function() delete}) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            backgroundColor: Color(0xFF2e2e2e),
+            content: Text("Deseja remover o este botão?", style: TextStyle(color: Colors.grey[100])),
+            actions: <Widget>[
+              Container(
+                width: 500,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    FlatButton(
+                      child: new Text('NÃO', style: TextStyle(color: Colors.red)),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    FlatButton(
+                      child: new Text('SIM', style: TextStyle(color: Colors.blue)),
+                      onPressed: () {
+                        delete();
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ],
+                ),
+              )
+
+            ],
+          );
+        });
+  }
+  Widget _buildLightButton({String title, bool controller, void Function() onPressed, void Function() onLongPress}){
     return InkResponse(
       onLongPress: () => onLongPress(),
       child: Column(
@@ -153,9 +187,12 @@ class _MultipleLightsState extends State<MultipleLights> {
                     onPressed: () => setState(() {
                       controller['LightState'] = !controller['LightState'];
                     }),
-                    onLongPress: () => setState(() {
-                      controllers.lightsMap.removeWhere((item) => item['Title'] == controller['Title']);
-                    }),
+                    onLongPress: () => _displayDeltePopUp(
+                        context: context,
+                        delete: () => setState(() {
+                          controllers.remove(controller['Title']);
+                        }),
+                    ),
                 ),
               FlatButton(
                 child: Icon(

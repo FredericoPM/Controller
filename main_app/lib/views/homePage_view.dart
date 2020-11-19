@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/repositories/preferences_repositorie.dart';
 import 'package:main_app/views/sideMenu_view.dart';
 class HomePage extends StatefulWidget {
   @override
@@ -7,7 +6,6 @@ class HomePage extends StatefulWidget {
 }
 class HomePageState extends State<HomePage> {
   bool _theme = false;
-  var pref = new Preferences();
 
   void initState() {
     super.initState();

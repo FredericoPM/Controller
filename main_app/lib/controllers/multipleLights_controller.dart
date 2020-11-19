@@ -12,5 +12,8 @@ class MultipleLightsController{
     aux['Title'] = title;
     _lightsMap.add(aux);
   }
+  void remove(String title){
+    this.lightsMap.removeWhere((item) => item['Title'] == title);
+  }
 
 }
