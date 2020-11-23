@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
+
+import 'package:main_app/widgets/desconected_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:main_app/controllers/connection_controller.dart';
 class NormalLight extends StatefulWidget {
   @override
   NormalLightState createState() => NormalLightState();
@@ -11,6 +15,7 @@ class NormalLightState extends State<NormalLight> {
   }
   @override
   Widget build(BuildContext context) {
+    bool connected = Provider.of<ConnectionController>(context).connected;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -19,6 +24,9 @@ class NormalLightState extends State<NormalLight> {
         appBar: AppBar(
           title: Text("Normal Light"),
           centerTitle: true,
+          actions: connected ? null :[
+            Desconected(),
+          ],
         ),
         body: Center(
           child: Container(

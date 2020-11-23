@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/colorPicker_widget.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
+
+import 'package:main_app/widgets/desconected_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:main_app/controllers/connection_controller.dart';
 class RGBLight extends StatefulWidget {
   @override
   RGBLightState createState() => RGBLightState();
@@ -13,6 +17,7 @@ class RGBLightState extends State<RGBLight> {
   @override
 
   Widget build(BuildContext context) {
+    bool connected = Provider.of<ConnectionController>(context).connected;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -21,6 +26,9 @@ class RGBLightState extends State<RGBLight> {
         appBar: AppBar(
           title: Text("RGB Light"),
           centerTitle: true,
+          actions: connected ? null :[
+            Desconected(),
+          ],
         ),
         body: Center(
           child: CircleColorPicker(

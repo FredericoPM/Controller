@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
+
+import 'package:main_app/widgets/desconected_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:main_app/controllers/connection_controller.dart';
 class SliderLight extends StatefulWidget {
   @override
   SliderLightState createState() => SliderLightState();
@@ -11,6 +15,7 @@ class SliderLightState extends State<SliderLight> {
   }
   @override
   Widget build(BuildContext context) {
+    bool connected = Provider.of<ConnectionController>(context).connected;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -19,6 +24,9 @@ class SliderLightState extends State<SliderLight> {
         appBar: AppBar(
           title: Text("Slider Light"),
           centerTitle: true,
+          actions: connected ? null :[
+            Desconected(),
+          ],
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,

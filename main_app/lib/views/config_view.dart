@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
+
 import 'package:main_app/widgets/desconected_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:main_app/controllers/connection_controller.dart';
+
 class Config extends StatefulWidget {
   @override
   ConfigState createState() => ConfigState();
@@ -8,7 +12,6 @@ class Config extends StatefulWidget {
 class ConfigState extends State<Config> {
   TextEditingController _broker;
   TextEditingController _topic;
-  bool conectado = false;
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -33,6 +36,7 @@ class ConfigState extends State<Config> {
   }
   @override
   Widget build(BuildContext context) {
+    bool connected = Provider.of<ConnectionController>(context).connected;
     const sizedBoxSpace = SizedBox(height: 24);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -42,7 +46,7 @@ class ConfigState extends State<Config> {
         appBar: AppBar(
           title: Text("Configurações"),
           centerTitle: true,
-          actions: conectado ? null :[
+          actions: connected ? null :[
              Desconected(),
           ],
         ),
@@ -78,10 +82,8 @@ class ConfigState extends State<Config> {
                                   child: Text("Desconectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: conectado ? (){
-                                setState(() {
-                                  conectado = !conectado;
-                                });
+                              onPressed: connected ? (){
+                                Provider.of<ConnectionController>(context, listen: false).invert();
                               } : null,
                           ),
                           RaisedButton(
@@ -94,10 +96,8 @@ class ConfigState extends State<Config> {
                                   child: Text("Conectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: conectado ? null : (){
-                                setState(() {
-                                  conectado = !conectado;
-                                });
+                              onPressed: connected ? null : (){
+                                Provider.of<ConnectionController>(context, listen: false).invert();
                               },
                           ),
 

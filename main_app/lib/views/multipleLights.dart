@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
 import 'package:main_app/controllers/multipleLights_controller.dart';
+
+import 'package:main_app/widgets/desconected_widget.dart';
+import 'package:provider/provider.dart';
+import 'package:main_app/controllers/connection_controller.dart';
+
 class MultipleLights extends StatefulWidget {
   @override
   _MultipleLightsState createState() => _MultipleLightsState();
@@ -167,6 +172,7 @@ class _MultipleLightsState extends State<MultipleLights> {
   }
   @override
   Widget build(BuildContext context) {
+    bool connected = Provider.of<ConnectionController>(context).connected;
     const sizedBoxSpace = SizedBox(height: 24);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -176,6 +182,9 @@ class _MultipleLightsState extends State<MultipleLights> {
           appBar: AppBar(
             title: Text("Multiple Lights"),
             centerTitle: true,
+            actions: connected ? null :[
+              Desconected(),
+            ],
           ),
           body: GridView.count(
             primary: false,
