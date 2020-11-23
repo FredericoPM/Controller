@@ -34,8 +34,8 @@ class ConnectionController with ChangeNotifier{
     manager.disconnect();
     notifyListeners();
   }
-  void update(){
-    notifyListeners();
+  void publishMessage(String text) {
+    manager.publish(text);
   }
 }
 

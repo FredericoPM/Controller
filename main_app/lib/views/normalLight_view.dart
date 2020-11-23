@@ -35,6 +35,7 @@ class NormalLightState extends State<NormalLight> {
                 setState(() {
                   _lightState = !_lightState;
                 }),
+                Provider.of<ConnectionController>(context, listen: false).publishMessage("teste")
               },
               fillColor: Colors.grey[700],
               child: Icon(
