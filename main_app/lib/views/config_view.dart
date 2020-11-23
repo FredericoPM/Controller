@@ -10,17 +10,23 @@ class Config extends StatefulWidget {
   ConfigState createState() => ConfigState();
 }
 class ConfigState extends State<Config> {
-  TextEditingController _broker;
-  TextEditingController _topic;
+  TextEditingController _broker = TextEditingController();
+  TextEditingController _topic = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
   }
   Widget _buildTextFild( TextEditingController controller, String labelText, String hintText){
-      return TextField(
+      return TextFormField(
         enabled: true,
         controller: controller,
+        validator: (s) {
+          if (s.isEmpty)
+            return "Preencha o campo";
+          else
+            return null;
+        },
         decoration: InputDecoration(
           border: const OutlineInputBorder(),
           focusedBorder: OutlineInputBorder(
@@ -36,7 +42,7 @@ class ConfigState extends State<Config> {
   }
   @override
   Widget build(BuildContext context) {
-    bool connected = Provider.of<ConnectionController>(context).connected;
+    ConnectionController controller = Provider.of<ConnectionController>(context);
     const sizedBoxSpace = SizedBox(height: 24);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -46,7 +52,7 @@ class ConfigState extends State<Config> {
         appBar: AppBar(
           title: Text("Configurações"),
           centerTitle: true,
-          actions: connected ? null :[
+          actions: controller.connection != 'MQTTConnectionState.disconnected' ? null : [
              Desconected(),
           ],
         ),
@@ -82,8 +88,8 @@ class ConfigState extends State<Config> {
                                   child: Text("Desconectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: connected ? (){
-                                Provider.of<ConnectionController>(context, listen: false).invert();
+                              onPressed: controller.connection != 'MQTTConnectionState.disconnected' ? (){
+                                controller.disconnect();
                               } : null,
                           ),
                           RaisedButton(
@@ -96,8 +102,10 @@ class ConfigState extends State<Config> {
                                   child: Text("Conectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: connected ? null : (){
-                                Provider.of<ConnectionController>(context, listen: false).invert();
+                              onPressed: controller.connection != 'MQTTConnectionState.disconnected' ? null : (){
+                                if(_formKey.currentState.validate()){
+                                  controller.configureAndConnect(_broker.text, _topic.text);
+                                }
                               },
                           ),
 

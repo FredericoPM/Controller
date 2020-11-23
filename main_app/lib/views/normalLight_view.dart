@@ -15,7 +15,7 @@ class NormalLightState extends State<NormalLight> {
   }
   @override
   Widget build(BuildContext context) {
-    bool connected = Provider.of<ConnectionController>(context).connected;
+    String connection = Provider.of<ConnectionController>(context).connection;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -24,7 +24,7 @@ class NormalLightState extends State<NormalLight> {
         appBar: AppBar(
           title: Text("Normal Light"),
           centerTitle: true,
-          actions: connected ? null :[
+          actions: connection != 'MQTTConnectionState.disconnected'? null :[
             Desconected(),
           ],
         ),

@@ -172,7 +172,7 @@ class _MultipleLightsState extends State<MultipleLights> {
   }
   @override
   Widget build(BuildContext context) {
-    bool connected = Provider.of<ConnectionController>(context).connected;
+    String connection = Provider.of<ConnectionController>(context).connection;
     const sizedBoxSpace = SizedBox(height: 24);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -182,7 +182,7 @@ class _MultipleLightsState extends State<MultipleLights> {
           appBar: AppBar(
             title: Text("Multiple Lights"),
             centerTitle: true,
-            actions: connected ? null :[
+            actions: connection != 'MQTTConnectionState.disconnected' ? null :[
               Desconected(),
             ],
           ),

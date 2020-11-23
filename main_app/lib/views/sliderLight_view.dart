@@ -15,7 +15,7 @@ class SliderLightState extends State<SliderLight> {
   }
   @override
   Widget build(BuildContext context) {
-    bool connected = Provider.of<ConnectionController>(context).connected;
+    String connection = Provider.of<ConnectionController>(context).connection;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -24,7 +24,7 @@ class SliderLightState extends State<SliderLight> {
         appBar: AppBar(
           title: Text("Slider Light"),
           centerTitle: true,
-          actions: connected ? null :[
+          actions: connection != 'MQTTConnectionState.disconnected'  ? null :[
             Desconected(),
           ],
         ),

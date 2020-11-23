@@ -1,25 +1,28 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:main_app/MQTT_state.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-
+import 'package:main_app/controllers/connection_controller.dart';
 class MQTTManager{
 
   // Private instance of client
-  final MQTTAppState _currentState;
+  void Function() _connectingg;
+  void Function() _disconnected;
+  void Function() _connected;
   MqttServerClient _client;
   final String _identifier;
   final String _host;
   final String _topic;
 
   // Constructor
-  MQTTManager({
-    @required String host,
-    @required String topic,
-    @required String identifier,
-    @required MQTTAppState state
-  }
-      ): _identifier = identifier, _host = host, _topic = topic, _currentState = state ;
+  MQTTManager({@required String host, @required String topic, @required String identifier, @required void Function() connectingg, @required void Function() disconnected, @required void Function() connected}):
+    _identifier = identifier,
+    _host = host,
+    _topic = topic,
+    _connectingg = connectingg,
+    _connected = connected,
+    _disconnected = disconnected
+  ;
+
 
   void initializeMQTTClient(){
     _client = MqttServerClient(_host,_identifier);
@@ -48,7 +51,7 @@ class MQTTManager{
     assert(_client != null);
     try {
       print('EXAMPLE::Mosquitto start client connecting....');
-      _currentState.setAppConnectionState(MQTTAppConnectionState.connecting);
+      _connectingg();
       await _client.connect();
     } on Exception catch (e) {
       print('EXAMPLE::client exception - $e');
@@ -78,19 +81,18 @@ class MQTTManager{
     if (_client.connectionStatus.returnCode == MqttConnectReturnCode.noneSpecified) {
       print('EXAMPLE::OnDisconnected callback is solicited, this is correct');
     }
-    _currentState.setAppConnectionState(MQTTAppConnectionState.disconnected);
+    _disconnected();
   }
 
   /// The successful connect callback
   void onConnected() {
-    _currentState.setAppConnectionState(MQTTAppConnectionState.connected);
+    _connected();
     print('EXAMPLE::Mosquitto client connected....');
     _client.subscribe(_topic, MqttQos.atLeastOnce);
     _client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
       final MqttPublishMessage recMess = c[0].payload;
       final String pt =
       MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      _currentState.setReceivedText(pt);
       print(
           'EXAMPLE::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
       print('');

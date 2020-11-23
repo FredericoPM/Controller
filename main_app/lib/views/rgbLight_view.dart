@@ -17,7 +17,7 @@ class RGBLightState extends State<RGBLight> {
   @override
 
   Widget build(BuildContext context) {
-    bool connected = Provider.of<ConnectionController>(context).connected;
+    String connection = Provider.of<ConnectionController>(context).connection;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -26,7 +26,7 @@ class RGBLightState extends State<RGBLight> {
         appBar: AppBar(
           title: Text("RGB Light"),
           centerTitle: true,
-          actions: connected ? null :[
+          actions: connection != 'MQTTConnectionState.disconnected'  ? null :[
             Desconected(),
           ],
         ),
