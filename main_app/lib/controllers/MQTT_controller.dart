@@ -50,7 +50,6 @@ class MQTTManager{
   void connect() async{
     assert(_client != null);
     try {
-      print('EXAMPLE::Mosquitto start client connecting....');
       _connectingg();
       await _client.connect();
     } on Exception catch (e) {
@@ -70,7 +69,6 @@ class MQTTManager{
     _client.publishMessage(_topic, MqttQos.exactlyOnce, builder.payload);
   }
 
-  /// The subscribed callback
   void onSubscribed(String topic) {
     print('EXAMPLE::Subscription confirmed for topic $topic');
   }
