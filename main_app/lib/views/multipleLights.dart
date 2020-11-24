@@ -6,6 +6,8 @@ import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 
+import 'package:main_app/widgets/textFormFild_widget.dart';
+
 class MultipleLights extends StatefulWidget {
   @override
   _MultipleLightsState createState() => _MultipleLightsState();
@@ -80,38 +82,6 @@ class _MultipleLightsState extends State<MultipleLights> {
       ),
     );
   }
-
-  Widget _buildTextFild({TextEditingController controller, String labelText, String hintText}){
-    return TextFormField(
-      enabled: true,
-      validator: (s) {
-        if (s.isEmpty)
-          return "Digite o nome.";
-        else
-          return null;
-      },
-      controller: controller,
-      decoration: InputDecoration(
-        enabledBorder: const OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.grey, width: 1.0),
-        ),
-        border: OutlineInputBorder(),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey[100], width: 2),
-        ),
-        hintText: hintText,
-        labelText: labelText,
-        hintStyle: TextStyle(
-          color:  Colors.grey[600],
-        ),
-        labelStyle: TextStyle(
-          color:  Colors.grey[200],
-        ),
-      ),
-      style: TextStyle(color: Colors.grey[300]),
-    );
-  }
-
   _buildAddPopUp(context) async{
     return showDialog(
         context: context,
@@ -123,7 +93,7 @@ class _MultipleLightsState extends State<MultipleLights> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  _buildTextFild(
+                  BuildTextFormFild(
                       controller: _titleController,
                       labelText: "Nome da luz",
                       hintText: "Ex: Luz central",
@@ -173,7 +143,6 @@ class _MultipleLightsState extends State<MultipleLights> {
   @override
   Widget build(BuildContext context) {
     String connection = Provider.of<ConnectionController>(context).connection;
-    const sizedBoxSpace = SizedBox(height: 24);
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData.dark(),

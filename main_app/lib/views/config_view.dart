@@ -4,7 +4,7 @@ import 'package:main_app/widgets/sideMenu_widget.dart';
 import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
-
+import 'package:main_app/widgets/textFormFild_widget.dart';
 class Config extends StatefulWidget {
   @override
   ConfigState createState() => ConfigState();
@@ -16,29 +16,6 @@ class ConfigState extends State<Config> {
   @override
   void initState() {
     super.initState();
-  }
-  Widget _buildTextFild( TextEditingController controller, String labelText, String hintText){
-      return TextFormField(
-        enabled: true,
-        controller: controller,
-        validator: (s) {
-          if (s.isEmpty)
-            return "Preencha o campo";
-          else
-            return null;
-        },
-        decoration: InputDecoration(
-          border: const OutlineInputBorder(),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey[100], width: 2),
-          ),
-          hintText: hintText,
-          labelText: labelText,
-          labelStyle: TextStyle(
-              color:  Colors.grey[200],
-          ),
-        ),
-      );
   }
   @override
   Widget build(BuildContext context) {
@@ -68,9 +45,17 @@ class ConfigState extends State<Config> {
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                            _buildTextFild(_broker, "Broker", "test.mosquitto.org"),
+                            BuildTextFormFild(
+                                controller: _broker,
+                                labelText: "Broker",
+                                hintText: "test.mosquitto.org"
+                            ),
                             sizedBoxSpace,
-                            _buildTextFild(_topic, "Topico", "SuaCasa/Quarto1"),
+                            BuildTextFormFild(
+                                controller: _topic,
+                                labelText: "Topico",
+                                hintText: "SuaCasa/Quarto1"
+                            ),
                           ],
                         ),
                       ),
