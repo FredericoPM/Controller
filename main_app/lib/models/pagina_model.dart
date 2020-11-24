@@ -8,9 +8,9 @@ class Pagina {
   Pagina({String nome, String tipo, bool estadoB, double estadoR, String estadoRGB}) {
     this._nome = nome;
     this._tipo = tipo;
-    this._estadoB = estadoB;
-    this._estadoR = estadoR;
-    this._estadoRGB = estadoRGB;
+    this._estadoB = estadoB = false;
+    this._estadoR = estadoR = 0.0;
+    this._estadoRGB = estadoRGB = "255,255,255";
   }
 
   String get nome => _nome;

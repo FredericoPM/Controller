@@ -5,10 +5,14 @@ import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class SliderLight extends StatefulWidget {
+  String title;
+  SliderLight(this.title);
   @override
-  SliderLightState createState() => SliderLightState();
+  _SliderLightState createState() => _SliderLightState(title);
 }
-class SliderLightState extends State<SliderLight> {
+class _SliderLightState extends State<SliderLight> {
+  String title;
+  _SliderLightState(this.title);
   double _lightState = 0;
   void initState() {
     super.initState();
@@ -22,7 +26,7 @@ class SliderLightState extends State<SliderLight> {
       home: Scaffold(
         drawer: MenuDrawer(),
         appBar: AppBar(
-          title: Text("Slider Light"),
+          title: Text(title),
           centerTitle: true,
           actions: connection != 'MQTTConnectionState.disconnected'  ? null :[
             Desconected(),

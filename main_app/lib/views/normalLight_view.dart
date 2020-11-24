@@ -5,10 +5,14 @@ import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class NormalLight extends StatefulWidget {
+  String title;
+  NormalLight(this.title);
   @override
-  NormalLightState createState() => NormalLightState();
+  _NormalLightState createState() => _NormalLightState(title);
 }
-class NormalLightState extends State<NormalLight> {
+class _NormalLightState extends State<NormalLight> {
+  String title;
+  _NormalLightState(this.title);
   bool _lightState = false;
   void initState() {
     super.initState();
@@ -22,7 +26,7 @@ class NormalLightState extends State<NormalLight> {
       home: Scaffold(
         drawer: MenuDrawer(),
         appBar: AppBar(
-          title: Text("Normal Light"),
+          title: Text(title),
           centerTitle: true,
           actions: connection != 'MQTTConnectionState.disconnected'? null :[
             Desconected(),

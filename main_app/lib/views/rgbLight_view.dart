@@ -6,10 +6,14 @@ import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class RGBLight extends StatefulWidget {
+  String title;
+  RGBLight(this.title);
   @override
-  RGBLightState createState() => RGBLightState();
+  _RGBLightState createState() => _RGBLightState(title);
 }
-class RGBLightState extends State<RGBLight> {
+class _RGBLightState extends State<RGBLight> {
+  String title;
+  _RGBLightState(this.title);
   bool _lightState = false;
   void initState() {
     super.initState();
@@ -24,7 +28,7 @@ class RGBLightState extends State<RGBLight> {
       home: Scaffold(
         drawer: MenuDrawer(),
         appBar: AppBar(
-          title: Text("RGB Light"),
+          title: Text(title),
           centerTitle: true,
           actions: connection != 'MQTTConnectionState.disconnected'  ? null :[
             Desconected(),
