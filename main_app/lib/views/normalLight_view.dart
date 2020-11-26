@@ -14,12 +14,22 @@ class _NormalLightState extends State<NormalLight> {
   String title;
   _NormalLightState(this.title);
   bool _lightState = false;
+  String connection;
   void initState() {
     super.initState();
   }
   @override
   Widget build(BuildContext context) {
-    String connection = Provider.of<ConnectionController>(context).connection;
+    connection = Provider.of<ConnectionController>(context).connection;
+    if(connection == 'MQTTConnectionState.connected'){
+      if(
+        Provider.of<ConnectionController>(context).manager.recivedData != null
+        && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
+        && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, title.length) == title
+      ){
+        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$title|1";
+      }
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -35,11 +45,11 @@ class _NormalLightState extends State<NormalLight> {
         body: Center(
           child: Container(
             child: RawMaterialButton(
-              onPressed: () => {
-                setState(() {
-                  _lightState = !_lightState;
-                }),
-                Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState? "1" : "0")
+              onPressed: () {
+                _lightState = !_lightState;
+                if(connection == 'MQTTConnectionState.connected'){
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0");
+                }
               },
               fillColor: Colors.grey[700],
               child: Icon(

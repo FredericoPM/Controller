@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/controllers/MQTT_controller.dart';
-
 enum MQTTConnectionState { connected, disconnected, connecting }
 
 class ConnectionController with ChangeNotifier{
-  String _prefix = 'Fred';
   MQTTConnectionState _appConnectionState = MQTTConnectionState.disconnected;
-  MQTTManager manager;
+  String _prefix = 'Fred';
+  MQTTController manager;
 
   String get connection{
     return _appConnectionState.toString();
   }
+  void notfy(){
+    notifyListeners();
+  }
   void configureAndConnect(String broker, String topic) async{
-    manager = MQTTManager(
+    manager = MQTTController(
         host: broker,
         topic: topic,
         identifier: _prefix,
@@ -25,15 +27,18 @@ class ConnectionController with ChangeNotifier{
         disconnected:(){
           _appConnectionState = MQTTConnectionState.disconnected;
         },
+        notfy: notfy,
     );
     manager.initializeMQTTClient();
     manager.connect();
     notifyListeners();
   }
+
   void disconnect(){
     manager.disconnect();
     notifyListeners();
   }
+
   void publishMessage(String text) {
     manager.publish(text);
   }

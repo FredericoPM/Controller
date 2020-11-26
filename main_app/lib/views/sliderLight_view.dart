@@ -13,6 +13,8 @@ class SliderLight extends StatefulWidget {
 class _SliderLightState extends State<SliderLight> {
   String title;
   _SliderLightState(this.title);
+
+  double _sliderState = 0;
   double _lightState = 0;
   void initState() {
     super.initState();
@@ -45,13 +47,19 @@ class _SliderLightState extends State<SliderLight> {
               child: RotatedBox(
                 quarterTurns: -1,
                 child: Slider(
-                  value: _lightState,
+                  value: _sliderState,
                   min: 0,
                   max: 100,
                   onChanged: (value) {
                     setState(() {
-                      _lightState = value;
+                      _sliderState = value;
                     });
+                    if((_sliderState - _lightState).abs() >= 1) {
+                      _lightState = _sliderState;
+                      if(connection == 'MQTTConnectionState.connected'){
+                        Provider.of<ConnectionController>(context, listen: false).publishMessage("$title|$_lightState");
+                      }
+                    }
                   },
                   activeColor: Colors.grey,
                   inactiveColor: Colors.grey[700],

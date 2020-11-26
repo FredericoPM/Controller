@@ -15,6 +15,7 @@ class _RGBLightState extends State<RGBLight> {
   String title;
   _RGBLightState(this.title);
   bool _lightState = false;
+  Color atualColor = Colors.blue;
   void initState() {
     super.initState();
   }
@@ -22,6 +23,15 @@ class _RGBLightState extends State<RGBLight> {
 
   Widget build(BuildContext context) {
     String connection = Provider.of<ConnectionController>(context).connection;
+    if(connection == 'MQTTConnectionState.connected'){
+      if(
+      Provider.of<ConnectionController>(context).manager.recivedData != null
+          && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
+          && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, title.length) == title
+      ){
+        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$title|1";
+      }
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
@@ -36,8 +46,15 @@ class _RGBLightState extends State<RGBLight> {
         ),
         body: Center(
           child: CircleColorPicker(
-            initialColor: Colors.blue,
-            onChanged: (color) => print(color),
+            initialColor: atualColor,
+            onChanged: (color) {
+              if( (color.red - atualColor.red).abs() >= 2 || (color.green - atualColor.green).abs() >= 2 || (color.blue - atualColor.blue).abs() >= 2){
+                atualColor = color;
+                if(connection == 'MQTTConnectionState.connected'){
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage("$title|${color.red},${color.green},${color.blue}");
+                }
+              }
+            },
             size: const Size(320, 320),
             strokeWidth: 4,
             thumbSize: 36,
@@ -54,6 +71,9 @@ class _RGBLightState extends State<RGBLight> {
                 setState(() {
                   _lightState = !_lightState;
                 }),
+                if(connection == 'MQTTConnectionState.connected'){
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0"),
+                }
               },
               child: _lightState ? Icon(Icons.lightbulb) : Icon(Icons.lightbulb_outline),
             ),

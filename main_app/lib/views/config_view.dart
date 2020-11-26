@@ -91,8 +91,10 @@ class ConfigState extends State<Config> {
                               ),
                               onPressed: controller.connection != 'MQTTConnectionState.disconnected' ? (){
                                 controller.disconnect();
+                                /*
                                 repository.setStringData("broker", '');
                                 repository.setStringData("topic", '');
+                                 */
                               } : null,
                           ),
                           RaisedButton(
