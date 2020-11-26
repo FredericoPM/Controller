@@ -1,6 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ConfigRepository{
+class ConnectionRepository{
 
   Future<String> loadStringData(String dataName) async{
     String value;

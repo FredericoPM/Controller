@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:main_app/repositories/connection_repository.dart';
 
-import 'package:main_app/repositories/config_repository.dart';
 class Config extends StatefulWidget {
   @override
   ConfigState createState() => ConfigState();
@@ -15,7 +15,7 @@ class ConfigState extends State<Config> {
   TextEditingController _broker = TextEditingController();
   TextEditingController _topic = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  ConfigRepository repository = ConfigRepository();
+  ConnectionRepository repository = ConnectionRepository();
 
   loadBroker() async{
     _broker.text = await repository.loadStringData('broker');

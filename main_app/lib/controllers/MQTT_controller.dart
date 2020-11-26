@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:main_app/repositories/config_repository.dart';
 class MQTTController{
-  final ConfigRepository _repository = ConfigRepository();
   // Private instance of client
   void Function() _disconnected;
   void Function() _connectingg;
@@ -70,7 +68,6 @@ class MQTTController{
 
   void disconnect() {
     _disconnected();
-    _repository.setStringData("conection", "disconnected");
     _client.disconnect();
 
   }
@@ -88,12 +85,10 @@ class MQTTController{
   void onDisconnected() {
     if (_client.connectionStatus.returnCode == MqttConnectReturnCode.noneSpecified) {}
     _disconnected();
-    _repository.setStringData("conection", "disconnected");
   }
   /// The successful connect callback
   void onConnected() {
     _connected();
-    _repository.setStringData("conection", "connected");
     _client.subscribe(_topic, MqttQos.atLeastOnce);
     _client.updates.listen((List<MqttReceivedMessage<MqttMessage>> c) {
       final MqttPublishMessage recMess = c[0].payload;

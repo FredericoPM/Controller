@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/controllers/MQTT_controller.dart';
-import 'package:main_app/repositories/config_repository.dart';
+import 'package:main_app/repositories/connection_repository.dart';
 enum MQTTConnectionState { connected, disconnected, connecting }
 
 class ConnectionController with ChangeNotifier{
   MQTTConnectionState _appConnectionState = MQTTConnectionState.disconnected;
-  ConfigRepository repository = ConfigRepository();
+  ConnectionRepository repository = ConnectionRepository();
   String _prefix = 'Fred';
   MQTTController manager;
   String _broker;
