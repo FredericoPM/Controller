@@ -16,6 +16,7 @@ class _RGBLightState extends State<RGBLight> {
   _RGBLightState(this.title);
   bool _lightState = false;
   Color atualColor = Colors.blue;
+
   void initState() {
     super.initState();
   }

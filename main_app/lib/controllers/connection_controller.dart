@@ -25,8 +25,8 @@ class ConnectionController with ChangeNotifier{
     print("topic : $_topic");
     if(_broker != null && _topic != null)
       configureAndConnect(_broker, _topic);
-
   }
+
   String get MQTTconnection{
     return _appConnectionState.toString().substring(20);
   }

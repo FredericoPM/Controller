@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/sideMenu_widget.dart';
-import 'package:provider/provider.dart';
-import 'package:main_app/controllers/connection_controller.dart';
 class HomePage extends StatefulWidget {
   @override
   HomePageState createState() => HomePageState();
@@ -9,6 +7,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   bool _theme = false;
   String connection;
+
   void initState() {
     super.initState();
   }
