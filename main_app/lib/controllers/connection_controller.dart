@@ -19,7 +19,6 @@ class ConnectionController with ChangeNotifier{
   }
 
   ConnectionController(){
-    print("entrei");
     _loadBroker();
     print("broker : $_broker");
     _loadTopic();

@@ -17,18 +17,18 @@ class ConfigState extends State<Config> {
   final _formKey = GlobalKey<FormState>();
   ConnectionRepository repository = ConnectionRepository();
 
-  loadBroker() async{
+  _loadBroker() async{
     _broker.text = await repository.loadStringData('broker');
   }
-  loadTopic() async{
+  _loadTopic() async{
     _topic.text = await repository.loadStringData('topic');
   }
 
   @override
   void initState(){
     super.initState();
-    loadBroker();
-    loadTopic();
+    _loadBroker();
+    _loadTopic();
   }
 
   @override
