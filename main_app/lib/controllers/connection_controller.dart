@@ -4,6 +4,7 @@ import 'package:main_app/controllers/MQTT_controller.dart';
 enum MQTTConnectionState { connected, disconnected, connecting }
 
 class ConnectionController with ChangeNotifier{
+  String _prefix = 'Fred';
   MQTTConnectionState _appConnectionState = MQTTConnectionState.disconnected;
   MQTTManager manager;
 
@@ -11,11 +12,10 @@ class ConnectionController with ChangeNotifier{
     return _appConnectionState.toString();
   }
   void configureAndConnect(String broker, String topic) async{
-    String Prefix = 'Fred';
     manager = MQTTManager(
         host: broker,
         topic: topic,
-        identifier: Prefix,
+        identifier: _prefix,
         connected: (){
           _appConnectionState = MQTTConnectionState.connected;
         },
