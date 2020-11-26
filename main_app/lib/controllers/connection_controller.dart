@@ -7,8 +7,8 @@ class ConnectionController with ChangeNotifier{
   String _prefix = 'Fred';
   MQTTController manager;
 
-  String get connection{
-    return _appConnectionState.toString();
+  String get MQTTconnection{
+    return _appConnectionState.toString().substring(20);
   }
   void notfy(){
     notifyListeners();

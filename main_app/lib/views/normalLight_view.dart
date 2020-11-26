@@ -20,8 +20,8 @@ class _NormalLightState extends State<NormalLight> {
   }
   @override
   Widget build(BuildContext context) {
-    connection = Provider.of<ConnectionController>(context).connection;
-    if(connection == 'MQTTConnectionState.connected'){
+    connection = Provider.of<ConnectionController>(context).MQTTconnection;
+    if(connection == 'connected'){
       if(
         Provider.of<ConnectionController>(context).manager.recivedData != null
         && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
@@ -38,7 +38,7 @@ class _NormalLightState extends State<NormalLight> {
         appBar: AppBar(
           title: Text(title),
           centerTitle: true,
-          actions: connection != 'MQTTConnectionState.disconnected'? null :[
+          actions: connection != 'disconnected'? null :[
             Desconected(),
           ],
         ),
@@ -47,7 +47,7 @@ class _NormalLightState extends State<NormalLight> {
             child: RawMaterialButton(
               onPressed: () {
                 _lightState = !_lightState;
-                if(connection == 'MQTTConnectionState.connected'){
+                if(connection == 'connected'){
                   Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0");
                 }
               },

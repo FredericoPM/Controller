@@ -22,8 +22,8 @@ class _RGBLightState extends State<RGBLight> {
   @override
 
   Widget build(BuildContext context) {
-    String connection = Provider.of<ConnectionController>(context).connection;
-    if(connection == 'MQTTConnectionState.connected'){
+    String connection = Provider.of<ConnectionController>(context).MQTTconnection;
+    if(connection == 'connected'){
       if(
       Provider.of<ConnectionController>(context).manager.recivedData != null
           && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
@@ -40,7 +40,7 @@ class _RGBLightState extends State<RGBLight> {
         appBar: AppBar(
           title: Text(title),
           centerTitle: true,
-          actions: connection != 'MQTTConnectionState.disconnected'  ? null :[
+          actions: connection != 'disconnected'  ? null :[
             Desconected(),
           ],
         ),
@@ -50,7 +50,7 @@ class _RGBLightState extends State<RGBLight> {
             onChanged: (color) {
               if( (color.red - atualColor.red).abs() >= 2 || (color.green - atualColor.green).abs() >= 2 || (color.blue - atualColor.blue).abs() >= 2){
                 atualColor = color;
-                if(connection == 'MQTTConnectionState.connected'){
+                if(connection == 'connected'){
                   Provider.of<ConnectionController>(context, listen: false).publishMessage("$title|${color.red},${color.green},${color.blue}");
                 }
               }
@@ -71,7 +71,7 @@ class _RGBLightState extends State<RGBLight> {
                 setState(() {
                   _lightState = !_lightState;
                 }),
-                if(connection == 'MQTTConnectionState.connected'){
+                if(connection == 'connected'){
                   Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0"),
                 }
               },

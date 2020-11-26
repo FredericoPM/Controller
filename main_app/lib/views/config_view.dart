@@ -45,7 +45,7 @@ class ConfigState extends State<Config> {
         appBar: AppBar(
           title: Text("Configurações"),
           centerTitle: true,
-          actions: controller.connection != 'MQTTConnectionState.disconnected' ? null : [
+          actions: controller.MQTTconnection != 'disconnected' ? null : [
              Desconected(),
           ],
         ),
@@ -89,7 +89,7 @@ class ConfigState extends State<Config> {
                                   child: Text("Desconectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: controller.connection != 'MQTTConnectionState.disconnected' ? (){
+                              onPressed: controller.MQTTconnection != 'disconnected' ? (){
                                 controller.disconnect();
                                 /*
                                 repository.setStringData("broker", '');
@@ -107,7 +107,7 @@ class ConfigState extends State<Config> {
                                   child: Text("Conectar", style: TextStyle(fontSize: 14)),
                                 ),
                               ),
-                              onPressed: controller.connection != 'MQTTConnectionState.disconnected' ? null : (){
+                              onPressed: controller.MQTTconnection != 'disconnected' ? null : (){
                                 if(_formKey.currentState.validate()){
                                   controller.configureAndConnect(_broker.text, _topic.text);
                                   repository.setStringData("broker", _broker.text);
