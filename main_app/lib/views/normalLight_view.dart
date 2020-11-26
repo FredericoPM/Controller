@@ -15,9 +15,11 @@ class _NormalLightState extends State<NormalLight> {
   _NormalLightState(this.title);
   bool _lightState = false;
   String connection;
+
   void initState() {
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     connection = Provider.of<ConnectionController>(context).MQTTconnection;

@@ -68,9 +68,7 @@ class _RGBLightState extends State<RGBLight> {
               foregroundColor: Colors.grey[50],
               backgroundColor: Colors.grey[700],
               onPressed: () =>{
-                setState(() {
-                  _lightState = !_lightState;
-                }),
+                _lightState = !_lightState,
                 if(connection == 'connected'){
                   Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0"),
                 }
