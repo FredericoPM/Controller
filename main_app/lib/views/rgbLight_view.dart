@@ -7,13 +7,15 @@ import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class RGBLight extends StatefulWidget {
   String title;
-  RGBLight(this.title);
+  int id;
+  RGBLight(this.title, this.id);
   @override
-  _RGBLightState createState() => _RGBLightState(title);
+  _RGBLightState createState() => _RGBLightState(title, id);
 }
 class _RGBLightState extends State<RGBLight> {
   String title;
-  _RGBLightState(this.title);
+  int id;
+  _RGBLightState(this.title, this.id);
   bool _lightState = false;
   Color atualColor = Colors.blue;
 
@@ -30,7 +32,7 @@ class _RGBLightState extends State<RGBLight> {
           && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
           && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, title.length) == title
       ){
-        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$title|1";
+        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$id|1";
       }
     }
     return MaterialApp(
@@ -52,7 +54,7 @@ class _RGBLightState extends State<RGBLight> {
               if( (color.red - atualColor.red).abs() >= 2 || (color.green - atualColor.green).abs() >= 2 || (color.blue - atualColor.blue).abs() >= 2){
                 atualColor = color;
                 if(connection == 'connected'){
-                  Provider.of<ConnectionController>(context, listen: false).publishMessage("$title|${color.red},${color.green},${color.blue}");
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage("$id|${color.red},${color.green},${color.blue}");
                 }
               }
             },
@@ -71,7 +73,7 @@ class _RGBLightState extends State<RGBLight> {
               onPressed: () =>{
                 _lightState = !_lightState,
                 if(connection == 'connected'){
-                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0"),
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$id|1" : "$id|0"),
                 }
               },
               child: _lightState ? Icon(Icons.lightbulb) : Icon(Icons.lightbulb_outline),

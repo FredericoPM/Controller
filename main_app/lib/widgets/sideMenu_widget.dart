@@ -45,18 +45,18 @@ class MenuDrawerState extends State<MenuDrawer>{
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                 },
               ),
-              for(var pg in controller.paginas)
+              for(var pg in controller.telas)
                 ListTile(
-                  title: Text(pg.nome),
+                  title: Text(pg.nomeTela),
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
-                    if(pg.tipo == "RGB")
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => RGBLight(pg.nome)));
-                    else if(pg.tipo == "Normal")
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => NormalLight(pg.nome)));
+                    if(pg.tipoTela == 1)
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => RGBLight(pg.nomeTela, pg.idTela)));
+                    else if(pg.tipoTela == 2)
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => NormalLight(pg.nomeTela, pg.idTela)));
                     else
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SliderLight(pg.nome)));
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SliderLight(pg.nomeTela, pg.idTela)));
                   },
                 ),
               NovaPagina(),

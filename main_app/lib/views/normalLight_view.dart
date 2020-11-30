@@ -6,13 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class NormalLight extends StatefulWidget {
   String title;
-  NormalLight(this.title);
+  int id;
+  NormalLight(this.title, this.id);
   @override
-  _NormalLightState createState() => _NormalLightState(title);
+  _NormalLightState createState() => _NormalLightState(title, id);
 }
 class _NormalLightState extends State<NormalLight> {
   String title;
-  _NormalLightState(this.title);
+  int id;
+  _NormalLightState(this.title, this.id);
   bool _lightState = false;
   String connection;
 
@@ -29,7 +31,7 @@ class _NormalLightState extends State<NormalLight> {
         && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
         && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, title.length) == title
       ){
-        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$title|1";
+        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$id|1";
       }
     }
     return MaterialApp(
@@ -50,7 +52,7 @@ class _NormalLightState extends State<NormalLight> {
               onPressed: () {
                 _lightState = !_lightState;
                 if(connection == 'connected'){
-                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$title|1" : "$title|0");
+                  Provider.of<ConnectionController>(context, listen: false).publishMessage(_lightState ? "$id|1" : "$id|0");
                 }
               },
               fillColor: Colors.grey[700],

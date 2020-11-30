@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:main_app/widgets/textFormFild_widget.dart';
 import 'package:main_app/widgets/dropDownFormFild_widget.dart';
-import 'package:main_app/models/pagina_model.dart';
+import 'package:main_app/models/tela_model.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/pagina_controller.dart';
 
@@ -9,7 +9,7 @@ class NovaPagina extends StatelessWidget {
 
   final _formKey = GlobalKey<FormState>();
   TextEditingController _nomeController = TextEditingController();
-  String _tipoValue = "";
+  int _tipoValue;
   final sizedBoxSpace = SizedBox(height: 24);
   _buildAddPopUp(context, PaginaController controller) async{
     return showDialog(
@@ -29,9 +29,9 @@ class NovaPagina extends StatelessWidget {
                   ),
                   sizedBoxSpace,
                   DropDownFormFild(
-                    setSlider: () => _tipoValue = "Slider",
-                    setNormal: () => _tipoValue = "Normal",
-                    setRGB: () => _tipoValue = "RGB",
+                    setSlider: () => _tipoValue = 3,
+                    setNormal: () => _tipoValue = 2,
+                    setRGB: () => _tipoValue = 1,
                   ),
                 ],
               ),
@@ -47,7 +47,7 @@ class NovaPagina extends StatelessWidget {
                       child: Text("CANCELAR", style: TextStyle(color: Colors.red, fontSize: 14)),
                       onPressed: ()  {
                           _nomeController.text = "";
-                          _tipoValue = "";
+                          _tipoValue = 0;
                         Navigator.of(context).pop();
                       },
                     ),
@@ -55,9 +55,9 @@ class NovaPagina extends StatelessWidget {
                       child: new Text('SALVAR', style: TextStyle(color: Colors.blue, fontSize: 14)),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          controller.add(Pagina(nome: _nomeController.text, tipo: _tipoValue));
+                          controller.add(Tela(idTela: 3, idAdm: 1,tipoTela: _tipoValue, nome: _nomeController.text));
                           _nomeController.text = "";
-                          _tipoValue = "";
+                          _tipoValue = 0;
                           Navigator.of(context).pop();
                         }
                       },

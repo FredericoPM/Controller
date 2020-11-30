@@ -6,13 +6,15 @@ import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class SliderLight extends StatefulWidget {
   String title;
-  SliderLight(this.title);
+  int id;
+  SliderLight(this.title,this.id);
   @override
-  _SliderLightState createState() => _SliderLightState(title);
+  _SliderLightState createState() => _SliderLightState(title,id);
 }
 class _SliderLightState extends State<SliderLight> {
   String title;
-  _SliderLightState(this.title);
+  int id;
+  _SliderLightState(this.title,this.id);
 
   double _sliderState = 0;
   double _lightState = 0;
@@ -57,7 +59,7 @@ class _SliderLightState extends State<SliderLight> {
                     if((_sliderState - _lightState).abs() >= 1) {
                       _lightState = _sliderState;
                       if(connection == 'connected'){
-                        Provider.of<ConnectionController>(context, listen: false).publishMessage("$title|$_lightState");
+                        Provider.of<ConnectionController>(context, listen: false).publishMessage("$id|$_lightState");
                       }
                     }
                   },

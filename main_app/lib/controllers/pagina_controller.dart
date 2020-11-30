@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:main_app/models/pagina_model.dart';
+import 'package:main_app/models/tela_model.dart';
 
 class PaginaController  with ChangeNotifier{
-  List<Pagina> paginas = [];
+  List<Tela> telas = [];
   PaginaController(){
-    this.paginas.add(Pagina(nome: "RGB", tipo: "RGB"));
-    this.paginas.add(Pagina(nome: "Normal", tipo: "Normal"));
-    this.paginas.add(Pagina(nome: "Slider", tipo: "Slider"));
+    this.telas.add(Tela(idTela: 1, idAdm: 1,tipoTela: 1, nome: "RGB"));
+    this.telas.add(Tela(idTela: 2, idAdm: 1,tipoTela: 2, nome: "Normal"));
+    this.telas.add(Tela(idTela: 3, idAdm: 1,tipoTela: 3, nome: "Slider"));
   }
 
-  void add(Pagina novaPagina){
-    this.paginas.add(novaPagina);
+  void add(Tela novaPagina){
+    this.telas.add(novaPagina);
     notifyListeners();
   }
   void getAll(){
     notifyListeners();
   }
   void remove(String nomeRemovida){
-    this.paginas.removeWhere((item) => item.nome == nomeRemovida);
+    this.telas.removeWhere((item) => item.nomeTela == nomeRemovida);
     notifyListeners();
   }
 }
