@@ -9,7 +9,7 @@ class ConnectionRepository{
     value = (prefs.getString(dataName) ?? '');
     return value;
   }
-  void setStringData(String dataName, String value) async{
+  Future<void> setStringData(String dataName, String value) async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(dataName, value);
   }

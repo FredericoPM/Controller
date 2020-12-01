@@ -8,7 +8,7 @@ import 'package:main_app/views/config_view.dart';
 import 'package:main_app/controllers/pagina_controller.dart';
 import 'package:main_app/widgets/novaPagina_widget.dart';
 import 'package:provider/provider.dart';
-
+import 'package:main_app/models/tela_model.dart';
 class MenuDrawer extends StatefulWidget {
   @override
   MenuDrawerState createState() => MenuDrawerState();

@@ -11,20 +11,22 @@ class ConnectionController with ChangeNotifier{
   String _broker;
   String _topic;
 
-  _loadBroker() async{
+  bool _loaded = false;
+  bool _tryedConnection = false;
+  bool get loaded => this._loaded;
+  bool get tryedConnection => this._tryedConnection;
+
+  loadData() async{
     _broker = await repository.loadStringData('broker');
-  }
-  _loadTopic() async{
     _topic = await repository.loadStringData('topic');
+    _loaded = true;
+    notifyListeners();
   }
 
-  ConnectionController(){
-    _loadBroker();
-    print("broker : $_broker");
-    _loadTopic();
-    print("topic : $_topic");
-    if(_broker != null && _topic != null)
-      configureAndConnect(_broker, _topic);
+  startConnection() async{
+    if(_broker != null && _topic != null && _appConnectionState.toString() == "MQTTConnectionState.disconnected" && !_tryedConnection)
+      await configureAndConnect(_broker, _topic);
+    _tryedConnection = true;
   }
 
   String get MQTTconnection{

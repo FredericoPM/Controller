@@ -5,7 +5,7 @@ import 'package:main_app/controllers/connection_controller.dart';
 void main() {
   runApp(
       ChangeNotifierProvider(
-        create: (context) => ConnectionController(),
+      create: (context) => ConnectionController(),
         child: MaterialApp(
           theme: ThemeData(
             fontFamily: 'Roboto',

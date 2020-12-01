@@ -24,6 +24,10 @@ class _NormalLightState extends State<NormalLight> {
 
   @override
   Widget build(BuildContext context) {
+    Provider.of<ConnectionController>(context).loadData();
+    if(Provider.of<ConnectionController>(context).loaded && !Provider.of<ConnectionController>(context).tryedConnection){
+      Provider.of<ConnectionController>(context).startConnection();
+    }
     connection = Provider.of<ConnectionController>(context).MQTTconnection;
     if(connection == 'connected'){
       if(
