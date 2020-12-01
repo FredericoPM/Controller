@@ -21,11 +21,18 @@ class MenuDrawerState extends State<MenuDrawer>{
 
   TextEditingController _nomeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  int _tipoValue;
+  int _tipoValue = 0;
 
   final sizedBoxSpace = SizedBox(height: 24);
 
-  _buildAddPopUp(context, PaginaController controller) async{
+  _buildAddPopUp(context, [Tela updated]) async{
+    if(updated != null){
+      _nomeController.text = updated.nomeTela;
+      _tipoValue = updated.tipoTela;
+    }else{
+      _nomeController.text = "";
+      _tipoValue = 0;
+    }
     return showDialog(
         context: context,
         builder: (context){
@@ -43,6 +50,7 @@ class MenuDrawerState extends State<MenuDrawer>{
                   ),
                   sizedBoxSpace,
                   DropDownFormFild(
+                    selected: _tipoValue,
                     setSlider: () => _tipoValue = 3,
                     setNormal: () => _tipoValue = 2,
                     setRGB: () => _tipoValue = 1,
@@ -58,10 +66,11 @@ class MenuDrawerState extends State<MenuDrawer>{
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     FlatButton(
-                      child: Text("CANCELAR", style: TextStyle(color: Colors.red, fontSize: 14)),
+                      child: Text(updated == null ? "CANCELAR" : "EXCLUIR", style: TextStyle(color: Colors.red, fontSize: 14)),
                       onPressed: ()  {
-                        _nomeController.text = "";
-                        _tipoValue = 0;
+                        if(updated != null){
+                          controller.remove(updated.idTela).then((data) => setState((){list = controller.telas;}));
+                        }
                         Navigator.of(context).pop();
                       },
                     ),
@@ -69,17 +78,23 @@ class MenuDrawerState extends State<MenuDrawer>{
                       child: new Text('SALVAR', style: TextStyle(color: Colors.blue, fontSize: 14)),
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
-                          setState(() {
+                          if(updated == null){
                             controller.add(
-                              Tela(
-                                idTela: controller.telas.length > 0 ? controller.telas.last.idTela + 1 : 1,
-                                tipoTela: _tipoValue,
-                                nome: _nomeController.text
-                              )
+                                Tela(
+                                    idTela: controller.telas.length > 0 ? controller.telas.last.idTela + 1 : 1,
+                                    tipoTela: _tipoValue,
+                                    nome: _nomeController.text
+                                )
                             ).then((data) => setState((){list = controller.telas;}));
-                            _nomeController.text = "";
-                            _tipoValue = 0;
-                          });
+                          }else{
+                            controller.update(
+                                Tela(
+                                    idTela: updated.idTela,
+                                    tipoTela: _tipoValue,
+                                    nome: _nomeController.text
+                                )
+                            ).then((data) => setState((){list = controller.telas;}));
+                          }
                           Navigator.of(context).pop();
                         }
                       },
@@ -126,8 +141,8 @@ class MenuDrawerState extends State<MenuDrawer>{
                 },
               ),
               for(var pg in list)
-                ListTile(
-                  title: Text(pg.nomeTela),
+                InkResponse(
+                  highlightShape: BoxShape.rectangle,
                   onTap: () {
                     Navigator.pop(context);
                     Navigator.pop(context);
@@ -138,11 +153,17 @@ class MenuDrawerState extends State<MenuDrawer>{
                     else
                       Navigator.push(context, MaterialPageRoute(builder: (context) => SliderLight(pg.nomeTela, pg.idTela)));
                   },
+                  onLongPress: (){
+                    _buildAddPopUp(context, pg);
+                  },
+                  child: ListTile(
+                    title: Text(pg.nomeTela),
+                  ),
                 ),
               ListTile(
                 title: Text('Nova Pagina  +', style: TextStyle(color: Colors.grey),),
                 onTap: () {
-                  _buildAddPopUp(context, controller);
+                  _buildAddPopUp(context);
                 },
               ),
               ListTile(

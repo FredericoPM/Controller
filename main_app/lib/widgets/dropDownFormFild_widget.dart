@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
 class DropDownFormFild extends StatefulWidget {
 
-  void Function() setRGB;
-  void Function() setNormal;
-  void Function() setSlider;
-
-  DropDownFormFild({this.setNormal, this.setRGB, this.setSlider});
+  final void Function() setRGB;
+  final void Function() setNormal;
+  final void Function() setSlider;
+  int selected;
+  DropDownFormFild({this.setNormal, this.setRGB, this.setSlider, this.selected = 0});
   @override
-  _DropDownFormFildState createState() => _DropDownFormFildState(setNormal, setRGB, setSlider);
+  _DropDownFormFildState createState() => _DropDownFormFildState(setNormal, setRGB, setSlider, selected);
 }
 
 class _DropDownFormFildState extends State<DropDownFormFild> {
-  var _formvalue;
+  String _formvalue;
 
   void Function() setRGB;
   void Function() setNormal;
   void Function() setSlider;
 
-  _DropDownFormFildState(this.setNormal, this.setRGB, this.setSlider);
+  _DropDownFormFildState(this.setNormal, this.setRGB, this.setSlider, int selected):
+      _formvalue = selected == 0 ? null : selected == 1 ? "RGB" : selected == 2 ? "Normal" : "Slider"
+  ;
 
   @override
   Widget build(BuildContext context) {

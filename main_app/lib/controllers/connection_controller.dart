@@ -35,7 +35,7 @@ class ConnectionController with ChangeNotifier{
   void notfy(){
     notifyListeners();
   }
-  void configureAndConnect(String broker, String topic) async{
+  Future<void> configureAndConnect(String broker, String topic) async{
     manager = MQTTController(
         host: broker,
         topic: topic,

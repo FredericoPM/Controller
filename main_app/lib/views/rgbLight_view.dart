@@ -6,8 +6,8 @@ import 'package:main_app/widgets/desconected_widget.dart';
 import 'package:provider/provider.dart';
 import 'package:main_app/controllers/connection_controller.dart';
 class RGBLight extends StatefulWidget {
-  String title;
-  int id;
+  final String title;
+  final int id;
   RGBLight(this.title, this.id);
   @override
   _RGBLightState createState() => _RGBLightState(title, id);

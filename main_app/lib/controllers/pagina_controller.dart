@@ -14,7 +14,7 @@ class PaginaController{
       print("Ocorreu o seguinte erro: $Erro");
     }
   }
-  Future<void> _update() async{
+  Future<void> _updateData() async{
     await repository.saveData(telas);
     await getAll();
   }
@@ -22,23 +22,26 @@ class PaginaController{
   Future<void> add(Tela novaTela) async{
     try {
       telas.add(novaTela);
-      _update();
+      _updateData();
     }catch(Erro){
       print("Ocorreu o seguinte erro: $Erro");
     }
   }
 
-  Future<void> remove(String nomeRemovida) async {
+  Future<void> remove(int idRemovida) async {
     try {
-      this.telas.removeWhere((item) => item.nomeTela == nomeRemovida);
+      telas.removeWhere((item) => item.idTela == idRemovida);
+      _updateData();
     } catch (Erro) {
       print("Ocorreu o seguinte erro: $Erro");
     }
   }
 
-  Future<void> update(int id) async{
+  Future<void> update(Tela updated) async{
     try{
-
+      int pos= telas.indexWhere((element) => element.idTela == updated.idTela);
+      telas[pos] = updated;
+      _updateData();
     }catch(Erro){
       print("Ocorreu o seguinte erro: $Erro");
     }
