@@ -9,7 +9,7 @@ import 'package:main_app/controllers/pagina_controller.dart';
 import 'package:main_app/widgets/textFormFild_widget.dart';
 import 'package:main_app/widgets/dropDownFormFild_widget.dart';
 import 'package:main_app/models/tela_model.dart';
-import 'package:main_app/models/tela_model.dart';
+
 class MenuDrawer extends StatefulWidget {
   @override
   MenuDrawerState createState() => MenuDrawerState();
@@ -17,6 +17,7 @@ class MenuDrawer extends StatefulWidget {
 class MenuDrawerState extends State<MenuDrawer>{
 
   PaginaController controller = PaginaController();
+  List<Tela> list = [];
 
   TextEditingController _nomeController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -69,7 +70,13 @@ class MenuDrawerState extends State<MenuDrawer>{
                       onPressed: () {
                         if (_formKey.currentState.validate()) {
                           setState(() {
-                            controller.add(Tela(idTela: controller.telas.last.idTela + 1 , tipoTela: _tipoValue, nome: _nomeController.text));
+                            controller.add(
+                              Tela(
+                                idTela: controller.telas.length > 0 ? controller.telas.last.idTela + 1 : 1,
+                                tipoTela: _tipoValue,
+                                nome: _nomeController.text
+                              )
+                            ).then((data) => setState((){list = controller.telas;}));
                             _nomeController.text = "";
                             _tipoValue = 0;
                           });
@@ -87,7 +94,13 @@ class MenuDrawerState extends State<MenuDrawer>{
   }
   void initState() {
     super.initState();
-    controller.getAll();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.getAll().then((data) {
+        setState(() {
+          list = controller.telas;
+        });
+      });
+    });
   }
   @override
   Widget build(BuildContext context) {
@@ -112,7 +125,7 @@ class MenuDrawerState extends State<MenuDrawer>{
                   Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
                 },
               ),
-              for(var pg in controller.telas)
+              for(var pg in list)
                 ListTile(
                   title: Text(pg.nomeTela),
                   onTap: () {

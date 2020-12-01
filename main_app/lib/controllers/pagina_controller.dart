@@ -1,20 +1,46 @@
-import 'package:flutter/material.dart';
 import 'package:main_app/models/tela_model.dart';
+import 'package:main_app/repositories/tela_repository.dart';
 
 class PaginaController{
+  TelaRepository repository = TelaRepository();
   List<Tela> telas = [];
-  PaginaController() {
-    this.telas.add(Tela(idTela: 1, tipoTela: 1, nome: "RGB"));
-    this.telas.add(Tela(idTela: 2, tipoTela: 2, nome: "Normal"));
-    this.telas.add(Tela(idTela: 3, tipoTela: 3, nome: "Slider"));
+
+  Future<void> getAll() async{
+    try{
+      final allList = await repository.readData();
+      telas.clear();
+      telas.addAll(allList);
+    }catch(Erro){
+      print("Ocorreu o seguinte erro: $Erro");
+    }
+  }
+  Future<void> _update() async{
+    await repository.saveData(telas);
+    await getAll();
   }
 
-  void add(Tela novaPagina){
-    this.telas.add(novaPagina);
+  Future<void> add(Tela novaTela) async{
+    try {
+      telas.add(novaTela);
+      _update();
+    }catch(Erro){
+      print("Ocorreu o seguinte erro: $Erro");
+    }
   }
-  void getAll(){
+
+  Future<void> remove(String nomeRemovida) async {
+    try {
+      this.telas.removeWhere((item) => item.nomeTela == nomeRemovida);
+    } catch (Erro) {
+      print("Ocorreu o seguinte erro: $Erro");
+    }
   }
-  void remove(String nomeRemovida){
-    this.telas.removeWhere((item) => item.nomeTela == nomeRemovida);
+
+  Future<void> update(int id) async{
+    try{
+
+    }catch(Erro){
+      print("Ocorreu o seguinte erro: $Erro");
+    }
   }
 }
