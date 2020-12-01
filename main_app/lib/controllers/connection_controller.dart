@@ -52,7 +52,9 @@ class ConnectionController with ChangeNotifier{
         notfy: notfy,
     );
     manager.initializeMQTTClient();
-    manager.connect();
+    await manager.connect();
+    if(_appConnectionState == MQTTConnectionState.connected)
+      publishMessage("DataRequest");
     notifyListeners();
   }
 

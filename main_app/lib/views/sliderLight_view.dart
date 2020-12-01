@@ -55,15 +55,20 @@ class _SliderLightState extends State<SliderLight> {
                 child: Slider(
                   value: _sliderState,
                   min: 0,
-                  max: 100,
+                  max: 1023,
                   onChanged: (value) {
                     setState(() {
                       _sliderState = value;
                     });
-                    if((_sliderState - _lightState).abs() >= 1) {
+                    if((_sliderState - _lightState).abs() >= 10) {
                       _lightState = _sliderState;
                       if(connection == 'connected'){
                         Provider.of<ConnectionController>(context, listen: false).publishMessage("$id|$_lightState");
+                      }
+                    }
+                    if(_sliderState < 10){
+                      if(connection == 'connected'){
+                        Provider.of<ConnectionController>(context, listen: false).publishMessage("$id|0.0");
                       }
                     }
                   },

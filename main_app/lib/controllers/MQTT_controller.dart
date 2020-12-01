@@ -55,7 +55,7 @@ class MQTTController{
 
   }
   // Connect to the host
-  void connect() async{
+  Future<void> connect() async{
     assert(_client != null);
     try {
       _connectingg();
