@@ -29,14 +29,13 @@ class _NormalLightState extends State<NormalLight> {
       Provider.of<ConnectionController>(context).startConnection();
     }
     connection = Provider.of<ConnectionController>(context).MQTTconnection;
-    if(connection == 'connected'){
-      if(
-        Provider.of<ConnectionController>(context).manager.recivedData != null
-        && Provider.of<ConnectionController>(context).manager.recivedData.length >= title.length
-        && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, title.length) == title
-      ){
-        _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$id|1";
-      }
+    if(
+        connection == 'connected'
+        && Provider.of<ConnectionController>(context).manager.recivedData != null
+        && Provider.of<ConnectionController>(context).manager.recivedData.length >= id.toString().length
+        && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, id.toString().length) == id.toString()
+    ){
+      _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$id|1";
     }
     return MaterialApp(
       debugShowCheckedModeBanner: false,

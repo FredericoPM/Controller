@@ -24,7 +24,7 @@ class ConnectionController with ChangeNotifier{
   }
 
   startConnection() async{
-    if(_broker != null && _topic != null && _appConnectionState.toString() == "MQTTConnectionState.disconnected" && !_tryedConnection)
+    if(_broker != null && _topic != null && _appConnectionState == MQTTConnectionState.disconnected && !_tryedConnection)
       await configureAndConnect(_broker, _topic);
     _tryedConnection = true;
   }
