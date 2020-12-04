@@ -32,6 +32,7 @@ class ConfigState extends State<Config> {
   }
 
   @override
+
   Widget build(BuildContext context) {
     Provider.of<ConnectionController>(context).loadData();
     if(Provider.of<ConnectionController>(context).loaded && !Provider.of<ConnectionController>(context).tryedConnection){
