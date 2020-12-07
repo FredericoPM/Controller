@@ -48,7 +48,7 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Color(0xFF2e2e2e),
             child: Column(
               children: [
-                Text("APP desenvolvidor por Frederico Prado Marques", style: TextStyle(fontSize: 11, color: Colors.grey)),
+                Text("APP desenvolvidor por Frederico Prado Marques", style: TextStyle(fontSize: 12, color: Colors.grey)),
                 SizedBox(height: 3),
                 Text("Eng. da Computação PUC Minas", style: TextStyle(fontSize: 11, color: Colors.grey)),
               ],

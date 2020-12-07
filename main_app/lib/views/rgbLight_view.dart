@@ -35,6 +35,7 @@ class _RGBLightState extends State<RGBLight> {
       && Provider.of<ConnectionController>(context).manager.recivedData != null
       && Provider.of<ConnectionController>(context).manager.recivedData.length >= id.toString().length
       && Provider.of<ConnectionController>(context).manager.recivedData.substring(0, id.toString().length) == id.toString()
+      && Provider.of<ConnectionController>(context).manager.recivedData.indexOf(',') == -1
     ){
       _lightState = Provider.of<ConnectionController>(context).manager.recivedData == "$id|1";
     }
