@@ -28,6 +28,7 @@ dependencies:
   provider: ^4.0.5
   shared_preferences: ^0.5.12+4
   path_provider: ^1.6.16
+  footer: ^0.0.3
 
 dev_dependencies:
   flutter_test:
