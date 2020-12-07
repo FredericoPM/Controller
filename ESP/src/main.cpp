@@ -2,8 +2,9 @@
 #include <PubSubClient.h>
 #include <Adafruit_NeoPixel.h>
 
+#define PIN_CONNECTION 2
 #define PIN_RELE 26
-#define PIN_SLIDER 2
+#define PIN_SLIDER 16
 
 #define PIN_LED_RGB 25
 #define NUMLED 9
@@ -131,7 +132,7 @@ void mqtt_callback(char* topic, byte* payload, unsigned int length) {
         Serial.print("Slider: ");
         Serial.println(data);
     }else if(msg.equals("DataRequest")){
-        char rgbColorData[14] = {0};
+        //char rgbColorData[14] = {0};
         char rgbStateData[4]= {0};
         char normalStateData[4]= {0};
         /*
@@ -159,10 +160,12 @@ void reconnectMQTT(void) {
         if (MQTT.connect(ID_MQTT)) 
         {
             Serial.println("Conectado com sucesso ao broker MQTT!");
+            digitalWrite(PIN_CONNECTION,HIGH);
             MQTT.subscribe(TOPICO_SUBSCRIBE); 
         } 
         else
         {
+            digitalWrite(PIN_CONNECTION,LOW);
             Serial.println("Falha ao reconectar no broker.");
             Serial.println("Havera nova tentatica de conexao em 2s");
             delay(2000);
@@ -201,6 +204,9 @@ void reconnectWiFi(void) {
 void setup() {
     Serial.begin(115200);
     pixels.begin();
+
+    pinMode(PIN_CONNECTION, OUTPUT);
+    digitalWrite(PIN_CONNECTION,LOW);
 
     pinMode(PIN_SLIDER, OUTPUT);//Definimos o pino 2 (LED) como saída.
     ledcAttachPin(PIN_SLIDER, 0);//Atribuimos o pino 2 ao canal 0.
