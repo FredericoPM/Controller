@@ -5,6 +5,8 @@
 |RGB|SWITCH|POTÊNCIA|
 | --- | --- | --- |
 | ![sample RGB](https://i.imgur.com/Vs4XT16.gif) | ![sample SWITCH](https://i.imgur.com/u4UIjTO.gif) | ![sample POTÊNCIA](https://i.imgur.com/2SGGYgc.gif) |
+#
 |Novo Controller|Desconectado|Conectando|
+| --- | --- | --- |
 | ![sample Novo Controller](https://i.imgur.com/zhV7oga.gif) | ![sample Desconectado](https://i.imgur.com/InP2ZMr.gif) | ![sample Conectando](https://i.imgur.com/sZKVI5D.gif) |
 
