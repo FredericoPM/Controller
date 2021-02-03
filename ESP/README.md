@@ -1,1 +1,2 @@
-
+# MICRO CONTROLADOR
+  Para o microcontrolador do projeto foi utilizado um esp-32 que tem antena wi-fi integrada de fábrica, além disso a placa possui um pequeno led azul embutido que neste projeto foi programado para acender quando a conexão com o broker MQTT for realizada. No esp são recebidas mensagens via MQTT onde as informações de controle estão presentes, após interpretar a mensagem os devidos comandos são enviados aos módulos. No esp foram programados os módulos para controle de uma fita de led rgb com tamanho variável a partir da biblioteca Adafruit_NeoPixel, também foi feito o controle de potência a partir de uma saída PWM da placa e por último uma das saída é utilizadas para fazer um simples switch (on/off).
